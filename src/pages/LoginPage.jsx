@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { validateLogin, loginUser } from '../utils/auth';
+import './LoginPage.css';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -18,24 +19,31 @@ function LoginPage() {
       return setError('Hibás felhasználónév vagy jelszó.');
     }
 
-    loginUser(user); // mentjük, hogy be van jelentkezve
-    navigate('/dashboard'); // később készítjük el ezt az oldalt
+    loginUser(user);
+    navigate('/dashboard');
   };
 
   return (
-    <div>
+    <div className="auth-container">
       <h2>Bejelentkezés</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Felhasználónév:
-          <input value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </label>
-        <br />
         <label>
           Jelszó:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </label>
-        <br />
         <button type="submit">Bejelentkezés</button>
       </form>
 

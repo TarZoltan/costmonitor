@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { userExists, saveUser } from '../utils/auth';
+import './RegisterPage.css';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -14,48 +15,56 @@ function RegisterPage() {
     e.preventDefault();
     setError('');
 
-    // Jelszó egyezik?
     if (password !== passwordConfirm) {
       return setError('A jelszavak nem egyeznek.');
     }
 
-    // Már létezik ilyen felhasználó?
     if (userExists(username)) {
       return setError('Ez a felhasználónév már foglalt.');
     }
 
-    // Mentés
     saveUser({ username, password, fullname });
     alert('Sikeres regisztráció! Most már bejelentkezhetsz.');
-
-    // Átirányítás login oldalra
     navigate('/login');
   };
 
   return (
-    <div>
+    <div className="auth-container">
       <h2>Regisztráció</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Felhasználónév:
-          <input value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
         </label>
-        <br />
         <label>
           Jelszó:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </label>
-        <br />
         <label>
           Jelszó megerősítése:
-          <input type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} required />
+          <input
+            type="password"
+            value={passwordConfirm}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
+            required
+          />
         </label>
-        <br />
         <label>
           Teljes név (opcionális):
-          <input value={fullname} onChange={(e) => setFullname(e.target.value)} />
+          <input
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+          />
         </label>
-        <br />
         <button type="submit">Regisztráció</button>
       </form>
 
